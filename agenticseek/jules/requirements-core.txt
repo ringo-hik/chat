@@ -1,0 +1,68 @@
+# API & 웹 프레임워크 (선택 필요)
+fastapi>=0.115.12
+uvicorn>=0.34.0
+aiofiles>=24.1.0
+
+# 비동기 태스크 처리
+celery>=5.5.1
+
+# 데이터 검증 & 구조화
+pydantic>=2.10.6
+pydantic_core>=2.27.2
+
+# LLM 통신
+ollama>=0.4.7
+openai
+httpx>=0.27,<0.29
+
+# 웹 자동화 (핵심 기능)
+selenium>=4.27.1
+chromedriver-autoinstaller>=0.6.4
+fake_useragent>=2.1.0
+
+# 기본 유틸리티
+requests>=2.31.0
+python-dotenv>=1.0.0
+setuptools>=75.6.0
+colorama>=0.4.6
+markdownify>=1.1.0
+
+# 음성 처리 (TTS/STT)
+pyaudio>=0.2.14
+soundfile>=0.13.1
+playsound>=1.3.0  # 문제의 패키지
+librosa>=0.10.2.post1
+
+# 무거운 ML 프레임워크
+transformers>=4.46.3
+torch>=2.4.1
+scipy>=1.9.3
+
+# NLP 부가 기능
+text2emotion>=0.0.5
+adaptive-classifier>=0.0.10
+langid>=1.1.6
+sacremoses>=0.0.53
+sentencepiece>=0.2.0
+
+# 문서 처리
+pypdf>=5.4.0
+
+# 개발 도구
+ipython>=8.13.0
+termcolor>=2.4.0
+
+# 기타
+kokoro==0.9.4  # 용도 불명확
+certifi==2025.4.26  # 미래 버전?
+numpy>=1.24.4  # ML 의존성
+protobuf>=3.20.3
+selenium_stealth>=1.0.6
+undetected-chromedriver>=3.5.5
+pypinyin
+tqdm>4
+sniffio
+anyio>=3.5.0,<5
+distro>=1.7.0,<2
+jiter>=0.4.0,<1
+ordered_set

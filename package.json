@@ -1,0 +1,113 @@
+{
+  "name": "swdp-chatops-extension",
+  "displayName": "SWDP ChatOps Extension",
+  "description": "VSCode extension for SWDP ChatOps integration with one-click automation",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/swdp-chatops-extension.git"
+  },
+  "publisher": "swdp-team",
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "swdp-chatops-container",
+          "title": "SWDP ChatOps",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "swdp-chatops-container": [
+        {
+          "id": "swdpChatOps",
+          "name": "SWDP ChatOps",
+          "when": "true"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "swdpChatOps.processWeeklyReport",
+        "title": "Process Weekly Report",
+        "icon": "$(file-text)"
+      },
+      {
+        "command": "swdpChatOps.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "swdpChatOps.checkAuth",
+        "title": "Check Authentication",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "swdpChatOps.openSettings",
+        "title": "Open Settings",
+        "icon": "$(settings)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "swdpChatOps.refresh",
+          "when": "view == swdpChatOps",
+          "group": "navigation"
+        },
+        {
+          "command": "swdpChatOps.openSettings",
+          "when": "view == swdpChatOps",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "swdpChatOps.processWeeklyReport",
+          "when": "view == swdpChatOps && viewItem == weeklyReportItem",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SWDP ChatOps",
+      "properties": {
+        "swdpChatOps.authToken": {
+          "type": "string",
+          "default": "",
+          "description": "Authentication token for SWDP ChatOps API."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "start-server": "node mock-server.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
