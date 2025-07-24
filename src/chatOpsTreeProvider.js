@@ -1,3 +1,4 @@
+const vscode = require('vscode');
 const logger = require('./logger');
 
 class ChatOpsTreeProvider {
