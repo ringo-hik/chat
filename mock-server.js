@@ -171,13 +171,14 @@ app.post('/devportal/api/v1/extension/message-async', async (req, res) => {
         // 주간 보고서 생성
         const reportContent = generateWeeklyReport(userId, userQuery, isFeedback ? userQuery : null);
         
-        // 성공 응답
+        // 성공 응답 (실제 서버 응답 구조에 맞춤)
         const response = {
             success: true,
-            data: reportContent,
-            timestamp: new Date().toISOString(),
-            userId: userId,
-            message: isFeedback ? '피드백이 반영된 보고서가 생성되었습니다.' : '주간 보고서가 성공적으로 생성되었습니다.'
+            data: {
+                aiQuery: userQuery,
+                message: reportContent,
+                success: true
+            }
         };
         
         console.log(`✅ 주간 보고서 생성 완료 (${userId})`);

@@ -73,13 +73,14 @@ function activate(context) {
             }
         }),
 
-        // Check Authentication command
-        vscode.commands.registerCommand('swdpChatOps.checkAuth', async () => {
-            try {
-                await checkAuth(apiService);
-            } catch (error) {
-                vscode.window.showErrorMessage(`Failed to check authentication: ${error.message}`);
-            }
+        // Show Help command
+        vscode.commands.registerCommand('swdpChatOps.showHelp', () => {
+            showHelpDialog();
+        }),
+
+        // Show How to Use command  
+        vscode.commands.registerCommand('swdpChatOps.showHowToUse', () => {
+            showHowToUseDialog();
         }),
 
         // Open Settings command
@@ -157,6 +158,9 @@ async function processWeeklyReport(apiService, gitUtils) {
             let reportContent = '';
             if (typeof response.data === 'string') {
                 reportContent = response.data;
+            } else if (response.data.message) {
+                // 실제 서버 응답 구조: data.message에 보고서 내용이 있음
+                reportContent = response.data.message;
             } else if (response.data.content) {
                 reportContent = response.data.content;
             } else if (response.data.report) {
@@ -232,7 +236,62 @@ async function saveReport() {
 }
 
 /**
- * Check Authentication
+ * Show Help Dialog
+ */
+function showHelpDialog() {
+    const helpMessage = `
+📖 SWDP ChatOps Extension Help
+
+🔹 Weekly Reports: 주간 보고서 자동 생성 및 관리
+🔹 Process Weekly Report: AI 기반 주간 보고서 생성
+🔹 Feedback System: 생성된 보고서에 대한 피드백 적용
+🔹 Auto Save: 보고서 자동 저장 및 파일 관리
+
+📧 문의사항이 있으시면 개발팀에 연락하세요.
+    `;
+    
+    vscode.window.showInformationMessage(helpMessage, { modal: true });
+}
+
+/**
+ * Show How to Use Dialog
+ */
+function showHowToUseDialog() {
+    const howToUseMessage = `
+🚀 SWDP ChatOps Extension 사용법
+
+1️⃣ **확장 프로그램 활성화**
+   - VS Code 왼쪽 사이드바에서 SWDP ChatOps 아이콘 클릭
+
+2️⃣ **주간 보고서 생성**
+   - "Weekly Reports" → "Process Weekly Report" 클릭
+   - AI가 자동으로 Git 커밋 내역을 분석하여 보고서 생성
+
+3️⃣ **피드백 적용** (선택사항)
+   - 보고서 생성 후 "Provide Feedback" 선택
+   - 원하는 수정사항 입력하여 보고서 개선
+
+4️⃣ **보고서 확인**
+   - 생성된 보고서는 자동으로 워크스페이스의 swdp_chatops/weekly_report 폴더에 저장
+   - Markdown 형식으로 저장되어 바로 확인 가능
+
+📸 **스크린샷 추가 권장 위치:**
+   • 확장 프로그램 사이드바 화면
+   • 주간 보고서 생성 버튼 클릭 시
+   • 생성된 보고서 미리보기
+   • 피드백 입력 화면
+   • 저장된 보고서 파일 위치
+
+💡 **팁:** 
+   - Git 커밋 메시지를 상세히 작성하면 더 정확한 보고서가 생성됩니다
+   - 보고서는 지난 8일간의 활동을 기준으로 생성됩니다
+    `;
+    
+    vscode.window.showInformationMessage(howToUseMessage, { modal: true });
+}
+
+/**
+ * Check Authentication (Legacy function - keeping for backwards compatibility)
  */
 async function checkAuth(apiService) {
     try {
